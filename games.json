@@ -1,0 +1,82 @@
+[
+  {
+    "id": "warzone",
+    "name": "Call of Duty: Warzone",
+    "slug": "warzone",
+    "sourceUrl": "https://support.activision.com/",
+    "min": { "ramGb": 8, "storageGb": 116, "ssdRequired": true },
+    "rec": { "ramGb": 16, "storageGb": 116, "ssdRequired": true }
+  },
+  {
+    "id": "civ6",
+    "name": "Sid Meier’s Civilization VI",
+    "slug": "civilization-6",
+    "sourceUrl": "https://store.steampowered.com/app/289070/",
+    "min": { "ramGb": 8, "storageGb": 12, "ssdRequired": false },
+    "rec": { "ramGb": 8, "storageGb": 12, "ssdRequired": false }
+  },
+  {
+    "id": "anno117",
+    "name": "Anno 117: Pax Romana",
+    "slug": "anno-117",
+    "sourceUrl": "https://www.ubisoft.com/",
+    "min": { "ramGb": 16, "storageGb": 70, "ssdRequired": true },
+    "rec": { "ramGb": 16, "storageGb": 70, "ssdRequired": true }
+  },
+  {
+    "id": "bf6",
+    "name": "Battlefield 6",
+    "slug": "battlefield-6",
+    "sourceUrl": "https://www.ea.com/",
+    "min": { "ramGb": 16, "storageGb": 100, "ssdRequired": true },
+    "rec": { "ramGb": 16, "storageGb": 100, "ssdRequired": true }
+  },
+  {
+    "id": "cs2",
+    "name": "Counter-Strike 2",
+    "slug": "counter-strike-2",
+    "sourceUrl": "https://store.steampowered.com/app/730/",
+    "min": { "ramGb": 8, "storageGb": 85, "ssdRequired": true },
+    "rec": { "ramGb": 16, "storageGb": 85, "ssdRequired": true }
+  },
+  {
+    "id": "fortnite",
+    "name": "Fortnite",
+    "slug": "fortnite",
+    "sourceUrl": "https://www.epicgames.com/help/",
+    "min": { "ramGb": 8, "storageGb": 30, "ssdRequired": false },
+    "rec": { "ramGb": 16, "storageGb": 30, "ssdRequired": false }
+  },
+  {
+    "id": "apex",
+    "name": "Apex Legends",
+    "slug": "apex-legends",
+    "sourceUrl": "https://store.steampowered.com/app/1172470/",
+    "min": { "ramGb": 8, "storageGb": 75, "ssdRequired": true },
+    "rec": { "ramGb": 16, "storageGb": 75, "ssdRequired": true }
+  },
+  {
+    "id": "gta5",
+    "name": "Grand Theft Auto V",
+    "slug": "gta-v",
+    "sourceUrl": "https://support.rockstargames.com/",
+    "min": { "ramGb": 8, "storageGb": 110, "ssdRequired": false },
+    "rec": { "ramGb": 16, "storageGb": 110, "ssdRequired": false }
+  },
+  {
+    "id": "cyberpunk2077",
+    "name": "Cyberpunk 2077",
+    "slug": "cyberpunk-2077",
+    "sourceUrl": "https://support.cdprojektred.com/",
+    "min": { "ramGb": 16, "storageGb": 70, "ssdRequired": true },
+    "rec": { "ramGb": 16, "storageGb": 70, "ssdRequired": true }
+  },
+  {
+    "id": "hogwarts",
+    "name": "Hogwarts Legacy",
+    "slug": "hogwarts-legacy",
+    "sourceUrl": "https://www.hogwartslegacy.com/",
+    "min": { "ramGb": 16, "storageGb": 85, "ssdRequired": true },
+    "rec": { "ramGb": 16, "storageGb": 85, "ssdRequired": true }
+  }
+]
