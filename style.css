@@ -17,3 +17,4 @@ button { margin-top: 12px; padding: 10px 14px; border-radius: 10px; border:1px s
 .result:empty {
   display: none;
 }
+body[data-game] #gameSelect { pointer-events: none; opacity: .9; }
