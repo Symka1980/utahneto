@@ -14,6 +14,7 @@ function fmtReq(r) {
 
 async function loadGames() {
   const res = await fetch("games.json", { cache: "no-store" });
+  if (!res.ok) throw new Error(`games.json HTTP ${res.status}`);
   games = await res.json();
 
   gameSelect.innerHTML = games
@@ -35,8 +36,9 @@ function renderRequirements() {
   reqBox.style.display = "block";
   reqMin.textContent = fmtReq(g.min);
   reqRec.textContent = fmtReq(g.rec);
-  reqSource.href = g.sourceUrl;
-  reqSource.textContent = g.sourceUrl.replace(/^https?:\/\//, "");
+
+  reqSource.href = g.sourceUrl || "#";
+  reqSource.textContent = (g.sourceUrl || "").replace(/^https?:\/\//, "");
 }
 
 function evaluateTier(user, req) {
@@ -73,7 +75,7 @@ document.getElementById("checkForm").addEventListener("submit", (e) => {
   }
 
   if (failsMin.length === 0) {
-    result.innerHTML = `🟨 <strong>Splňuješ Minimum</strong>, ale ne Recommended pro <strong>${g.name}</strong>.<ul>${failsRec.map(f => `<li>${f}</li>`).join("")}</ul><small>CPU/GPU doplníme v další verzi.</small>`;
+    result.innerHTML = `🟨 <strong>Splňuješ Minimum</strong>, ale ne Recommended pro <strong>${g.name}</strong>:<ul>${failsRec.map(f => `<li>${f}</li>`).join("")}</ul><small>CPU/GPU doplníme v další verzi.</small>`;
     return;
   }
 
