@@ -9,7 +9,7 @@
   },
   {
     "id": "civ6",
-    "name": "Sid Meier’s Civilization VI",
+    "name": "Sid Meier's Civilization VI",
     "slug": "civilization-6",
     "sourceUrl": "https://store.steampowered.com/app/289070/",
     "min": { "ramGb": 8, "storageGb": 12, "ssdRequired": false },
