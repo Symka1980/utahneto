@@ -12,14 +12,30 @@ function fmtReq(r) {
   return `RAM ${r.ramGb} GB · Volné místo ${r.storageGb} GB · SSD ${r.ssdRequired ? "ANO" : "NE"}`;
 }
 
+function getDefaultGameId() {
+  // 1) ?game=warzone (volitelné)
+  const url = new URL(window.location.href);
+  const q = url.searchParams.get("game");
+  if (q) return q;
+
+  // 2) <body data-game="warzone"> (pro SEO stránky)
+  const b = document.body?.dataset?.game;
+  return b || null;
+}
+
 async function loadGames() {
-  const res = await fetch("games.json", { cache: "no-store" });
+  const res = await fetch("/games.json", { cache: "no-store" });
   if (!res.ok) throw new Error(`games.json HTTP ${res.status}`);
   games = await res.json();
 
   gameSelect.innerHTML = games
     .map(g => `<option value="${g.id}">${g.name}</option>`)
     .join("");
+
+  const defaultId = getDefaultGameId();
+  if (defaultId && games.some(g => g.id === defaultId)) {
+    gameSelect.value = defaultId;
+  }
 
   renderRequirements();
 }
