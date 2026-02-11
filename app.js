@@ -1,3 +1,14 @@
+// Cloudflare Web Analytics (cookie-less)
+const CF_WEB_ANALYTICS_TOKEN = "f94d6990571c44d5a901958e31091acd";
+
+(function injectCfBeacon() {
+  const s = document.createElement("script");
+  s.defer = true;
+  s.src = "https://static.cloudflareinsights.com/beacon.min.js";
+  s.setAttribute("data-cf-beacon", JSON.stringify({ token: CF_WEB_ANALYTICS_TOKEN }));
+  document.head.appendChild(s);
+})();
+
 let games = [];
 
 const gameSelect = document.getElementById("gameSelect");
