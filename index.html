@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>UtáhneTo.cz – Zjisti, jestli ti poběží hra</title>
+  <meta name="description" content="Český checker: zjisti, jestli ti poběží hra. Minimum/recommended + doporučení upgradu." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="wrap">
+    <h1>UtáhneTo.cz</h1>
+    <p class="lead">Zjisti, jestli tvůj PC splní požadavky hry. (MVP verze)</p>
+
+    <section class="card">
+      <h2>Rychlá kontrola</h2>
+      <form id="checkForm">
+        <label>Hra
+          <select id="gameSelect" required></select>
+        </label>
+
+        <div class="grid">
+          <label>RAM (GB)
+            <input id="ramGb" type="number" min="1" step="1" placeholder="např. 16" required />
+          </label>
+
+          <label>Volné místo (GB)
+            <input id="storageGb" type="number" min="1" step="1" placeholder="např. 200" required />
+          </label>
+
+          <label>Máš SSD?
+            <select id="hasSsd" required>
+              <option value="yes">Ano</option>
+              <option value="no">Ne</option>
+            </select>
+          </label>
+        </div>
+
+        <button type="submit">Zkontrolovat</button>
+      </form>
+
+      <div id="result" class="result" aria-live="polite"></div>
+      <p class="note">
+        Pozn.: CPU/GPU porovnání přidáme v další verzi. Teď kontrolujeme RAM/disk/SSD a ukážeme oficiální minimum.
+      </p>
+    </section>
+
+    <footer class="footer">
+      <a href="mailto:info@utahneto.cz">info@utahneto.cz</a>
+    </footer>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
