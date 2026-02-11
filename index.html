@@ -6,6 +6,7 @@
   <title>UtáhneTo.cz – Zjisti, jestli ti poběží hra</title>
   <meta name="description" content="Český checker: zjisti, jestli ti poběží hra. Minimum/recommended + doporučení upgradu." />
   <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="favicon.ico" />
 </head>
 <body>
   <main class="wrap">
@@ -14,6 +15,7 @@
 
     <section class="card">
       <h2>Rychlá kontrola</h2>
+
       <form id="checkForm">
         <label>Hra
           <select id="gameSelect" required></select>
@@ -21,11 +23,29 @@
 
         <div class="grid">
           <label>RAM (GB)
-            <input id="ramGb" type="number" min="1" step="1" placeholder="např. 16" required />
+            <input
+              id="ramGb"
+              type="number"
+              min="1"
+              step="1"
+              placeholder="např. 16"
+              required
+              inputmode="numeric"
+              autocomplete="off"
+            />
           </label>
 
           <label>Volné místo (GB)
-            <input id="storageGb" type="number" min="1" step="1" placeholder="např. 200" required />
+            <input
+              id="storageGb"
+              type="number"
+              min="1"
+              step="1"
+              placeholder="např. 200"
+              required
+              inputmode="numeric"
+              autocomplete="off"
+            />
           </label>
 
           <label>Máš SSD?
@@ -40,16 +60,20 @@
       </form>
 
       <div id="result" class="result" aria-live="polite"></div>
+
       <p class="note">
-        Pozn.: CPU/GPU porovnání přidáme v další verzi. Teď kontrolujeme RAM/disk/SSD a ukážeme oficiální minimum.
+        Pozn.: CPU/GPU porovnání přidáme v další verzi. Teď kontrolujeme RAM/disk/SSD a zobrazujeme oficiální minimum i recommended.
       </p>
-      
     </section>
+
     <section id="reqBox" class="card" style="display:none; margin-top:14px;">
       <h2>Oficiální požadavky (MVP)</h2>
       <p><strong>Minimum:</strong> <span id="reqMin"></span></p>
       <p><strong>Recommended:</strong> <span id="reqRec"></span></p>
-      <p class="note">Zdroj: <a id="reqSource" href="#" target="_blank" rel="noopener noreferrer"></a></p>
+      <p class="note">
+        Zdroj:
+        <a id="reqSource" href="#" target="_blank" rel="noopener noreferrer"></a>
+      </p>
     </section>
 
     <footer class="footer">
