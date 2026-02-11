@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://utahneto.cz/</loc></url>
+
+  <url><loc>https://utahneto.cz/games/warzone/</loc></url>
+  <url><loc>https://utahneto.cz/games/civilization-6/</loc></url>
+  <url><loc>https://utahneto.cz/games/anno-117/</loc></url>
+  <url><loc>https://utahneto.cz/games/battlefield-6/</loc></url>
+  <url><loc>https://utahneto.cz/games/counter-strike-2/</loc></url>
+  <url><loc>https://utahneto.cz/games/fortnite/</loc></url>
+  <url><loc>https://utahneto.cz/games/apex-legends/</loc></url>
+  <url><loc>https://utahneto.cz/games/gta-v/</loc></url>
+  <url><loc>https://utahneto.cz/games/cyberpunk-2077/</loc></url>
+  <url><loc>https://utahneto.cz/games/hogwarts-legacy/</loc></url>
 </urlset>
