@@ -1,1 +1,69 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>UtáhneTo.cz – Hogwarts Legacy: požadavky a kontrola PC</title>
+  <meta name="description" content="Hogwarts Legacy – zjisti, jestli tvůj PC splní požadavky. Minimum/recommended + rychlá kontrola RAM/disku/SSD." />
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="icon" href="/favicon.ico" />
+</head>
+
+<body data-game="hogwarts">
+  <main class="wrap">
+    <p style="margin:0 0 12px;"><a href="/">← Zpět na hlavní stránku</a></p>
+
+    <h1>Hogwarts Legacy – UtáhneTo.cz</h1>
+    <p class="lead">Rychlá kontrola pro Hogwarts Legacy (MVP verze).</p>
+
+    <section class="card">
+      <h2>Rychlá kontrola</h2>
+
+      <form id="checkForm">
+        <label>Hra
+          <select id="gameSelect" required></select>
+        </label>
+
+        <div class="grid">
+          <label>RAM (GB)
+            <input id="ramGb" type="number" min="1" step="1" placeholder="např. 16" required inputmode="numeric" autocomplete="off" />
+          </label>
+
+          <label>Volné místo (GB)
+            <input id="storageGb" type="number" min="1" step="1" placeholder="např. 200" required inputmode="numeric" autocomplete="off" />
+          </label>
+
+          <label>Máš SSD?
+            <select id="hasSsd" required>
+              <option value="yes">Ano</option>
+              <option value="no">Ne</option>
+            </select>
+          </label>
+        </div>
+
+        <button type="submit">Zkontrolovat</button>
+      </form>
+
+      <div id="result" class="result" aria-live="polite"></div>
+
+      <p class="note">
+        Pozn.: CPU/GPU porovnání přidáme v další verzi. Teď kontrolujeme RAM/disk/SSD a zobrazujeme minimum i recommended.
+      </p>
+    </section>
+
+    <section id="reqBox" class="card" style="display:none; margin-top:14px;">
+      <h2>Oficiální požadavky (MVP)</h2>
+      <p><strong>Minimum:</strong> <span id="reqMin"></span></p>
+      <p><strong>Recommended:</strong> <span id="reqRec"></span></p>
+      <p class="note">Zdroj: <a id="reqSource" href="#" target="_blank" rel="noopener noreferrer"></a></p>
+    </section>
+
+    <footer class="footer">
+      <a href="mailto:info@utahneto.cz">info@utahneto.cz</a>
+    </footer>
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+</html>
 
