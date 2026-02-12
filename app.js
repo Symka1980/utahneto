@@ -40,14 +40,58 @@ function tiersUntouched() {
 
 function setSelectValueIfExists(selectEl, value) {
   if (!selectEl || !value) return;
-  // only set if that option exists
   const hasOption = Array.from(selectEl.options).some(o => o.value === value);
   if (hasOption) selectEl.value = value;
+}
+
+// --- localStorage (remember last user inputs) ---
+const LS_KEY = "utahneto_user";
+
+function readSavedUser() {
+  try {
+    return JSON.parse(localStorage.getItem(LS_KEY) || "{}");
+  } catch {
+    return {};
+  }
+}
+
+function writeSavedUser(user) {
+  try {
+    localStorage.setItem(LS_KEY, JSON.stringify(user));
+  } catch {
+    // ignore (private mode etc.)
+  }
+}
+
+function loadUserDefaultsIntoForm() {
+  const saved = readSavedUser();
+
+  const ramEl = document.getElementById("ramGb");
+  const storageEl = document.getElementById("storageGb");
+  const ssdEl = document.getElementById("hasSsd");
+
+  if (ramEl && typeof saved.ramGb === "number") ramEl.value = saved.ramGb;
+  if (storageEl && typeof saved.storageGb === "number") storageEl.value = saved.storageGb;
+  if (ssdEl && typeof saved.hasSsd === "boolean") ssdEl.value = saved.hasSsd ? "yes" : "no";
+
+  // CPU/GPU (only if present)
+  if (cpuTierEl && typeof saved.cpuTier === "string") cpuTierEl.value = saved.cpuTier;
+  if (gpuTierEl && typeof saved.gpuTier === "string") gpuTierEl.value = saved.gpuTier;
+}
+
+function hasAnySavedTier() {
+  const saved = readSavedUser();
+  return typeof saved.cpuTier === "string" || typeof saved.gpuTier === "string";
 }
 
 function applyDefaultTiersForGame(g) {
   if (!g) return;
   if (!cpuTierEl && !gpuTierEl) return;
+
+  // If user already has saved tiers, don't override them with game MIN
+  if (hasAnySavedTier()) return;
+
+  // If user already changed tiers manually on this page, don't override
   if (!tiersUntouched()) return;
 
   setSelectValueIfExists(cpuTierEl, g.min?.cpuTier);
@@ -70,6 +114,14 @@ async function loadGames() {
       .join("");
   }
 
+  // 1) render requirements for selected game
+  renderRequirements();
+
+  // 2) load last user inputs into the form (RAM/SSD/CPU/GPU etc.)
+  loadUserDefaultsIntoForm();
+
+  // 3) after loading user defaults, ensure requirements still match selected game
+  // (and apply defaults only if we should)
   renderRequirements();
 }
 
@@ -89,8 +141,7 @@ function renderRequirements() {
   reqSource.href = g.sourceUrl;
   reqSource.textContent = g.sourceUrl.replace(/^https?:\/\//, "");
 
-  // Apply defaults AFTER rendering requirements
-  // (and only if user didn't manually change tiers)
+  // Apply game MIN defaults only if user has no saved tiers and hasn't touched tiers
   applyDefaultTiersForGame(g);
 }
 
@@ -134,6 +185,15 @@ if (form) {
       storageGb: Number(document.getElementById("storageGb").value),
       hasSsd: document.getElementById("hasSsd").value === "yes"
     };
+
+    // Save for next visit (UX quick win)
+    writeSavedUser({
+      cpuTier: user.cpuTier,
+      gpuTier: user.gpuTier,
+      ramGb: user.ramGb,
+      storageGb: user.storageGb,
+      hasSsd: user.hasSsd
+    });
 
     const failsRec = evaluateTier(user, g.rec);
     const failsMin = evaluateTier(user, g.min);
