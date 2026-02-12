@@ -19,6 +19,21 @@ function tierNameGpu(t) {
   return { igpu: "iGPU", low: "Low", mid: "Mid", high: "High", enthusiast: "Enthusiast" }[t] || t;
 }
 
+// --- Optional tier UI controls (exist on homepage + game pages) ---
+const cpuTierEl = document.getElementById("cpuTier");
+const gpuTierEl = document.getElementById("gpuTier");
+
+// If user manually changed tiers, do not override on game change
+let userTouchedTiers = false;
+if (cpuTierEl) cpuTierEl.addEventListener("change", () => (userTouchedTiers = true));
+if (gpuTierEl) gpuTierEl.addEventListener("change", () => (userTouchedTiers = true));
+
+function applyDefaultTiersForGame(g) {
+  if (!g || userTouchedTiers) return;
+  if (cpuTierEl && g.min?.cpuTier) cpuTierEl.value = g.min.cpuTier;
+  if (gpuTierEl && g.min?.gpuTier) gpuTierEl.value = g.min.gpuTier;
+}
+
 function fmtReq(r) {
   const cpu = r.cpuTier ? `CPU ${tierNameCpu(r.cpuTier)}` : "CPU (TBD)";
   const gpu = r.gpuTier ? `GPU ${tierNameGpu(r.gpuTier)}` : "GPU (TBD)";
@@ -45,11 +60,15 @@ function renderRequirements() {
   const g = getSelectedGame();
   if (!g) return;
 
+  // Update requirements box
   reqBox.style.display = "block";
   reqMin.textContent = fmtReq(g.min);
   reqRec.textContent = fmtReq(g.rec);
   reqSource.href = g.sourceUrl;
   reqSource.textContent = g.sourceUrl.replace(/^https?:\/\//, "");
+
+  // MVP UX: set default CPU/GPU tiers based on selected game MIN (only if user didn't touch them)
+  applyDefaultTiersForGame(g);
 }
 
 function evaluateTier(user, req) {
@@ -74,6 +93,7 @@ function evaluateTier(user, req) {
 }
 
 gameSelect.addEventListener("change", () => {
+  // when game changes, update requirements + maybe default tiers
   renderRequirements();
   result.innerHTML = "";
 });
@@ -83,9 +103,6 @@ document.getElementById("checkForm").addEventListener("submit", (e) => {
 
   const g = getSelectedGame();
   if (!g) return;
-
-  const cpuTierEl = document.getElementById("cpuTier");
-  const gpuTierEl = document.getElementById("gpuTier");
 
   const user = {
     cpuTier: cpuTierEl ? cpuTierEl.value : "mid",
@@ -98,25 +115,24 @@ document.getElementById("checkForm").addEventListener("submit", (e) => {
   const failsRec = evaluateTier(user, g.rec);
   const failsMin = evaluateTier(user, g.min);
 
+  const mvpNote = `<small>MVP porovnává CPU/GPU pomocí “úrovní” (Low/Mid/High). Přesné modely doplníme později.</small>`;
+
   if (failsRec.length === 0) {
     result.innerHTML =
-      `✅ <strong>Splňuješ Recommended</strong> pro <strong>${g.name}</strong>.` +
-      `<br><small>MVP porovnává CPU/GPU pomocí “tierů”. Přesné modely doplníme později.</small>`;
+      `✅ <strong>Splňuješ Recommended</strong> pro <strong>${g.name}</strong>.<br>${mvpNote}`;
     return;
   }
 
   if (failsMin.length === 0) {
     result.innerHTML =
       `🟨 <strong>Splňuješ Minimum</strong>, ale ne Recommended pro <strong>${g.name}</strong>.` +
-      `<ul>${failsRec.map(f => `<li>${f}</li>`).join("")}</ul>` +
-      `<small>MVP porovnává CPU/GPU pomocí “tierů”. Přesné modely doplníme později.</small>`;
+      `<ul>${failsRec.map(f => `<li>${f}</li>`).join("")}</ul>${mvpNote}`;
     return;
   }
 
   result.innerHTML =
     `❌ <strong>Nesplňuješ Minimum</strong> pro <strong>${g.name}</strong>:` +
-    `<ul>${failsMin.map(f => `<li>${f}</li>`).join("")}</ul>` +
-    `<small>MVP porovnává CPU/GPU pomocí “tierů”. Přesné modely doplníme později.</small>`;
+    `<ul>${failsMin.map(f => `<li>${f}</li>`).join("")}</ul>${mvpNote}`;
 });
 
 loadGames().catch(() => {
